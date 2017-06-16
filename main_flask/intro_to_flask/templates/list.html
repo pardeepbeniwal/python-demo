@@ -1,0 +1,11 @@
+{% extends "layout.html" %}
+{% block content %}
+  <h2>User List</h2>
+  {% for user in users.items %}
+    <div class="flash">{{ user.firstname }}</div>
+  {% endfor %}
+  
+{% if users.has_prev %}<a href="{{ url_for('list', page=users.prev_num) }}">&lt;&lt; Newer users</a>{% else %}&lt;&lt; Newer users{{users.prev_num}}{% endif %} | 
+{% if users.has_next %}<a href="{{ url_for('list', page=users.next_num) }}">Older users &gt;&gt;</a>{% else %}Older users &gt;&gt;{% endif %}
+  
+{% endblock %}
