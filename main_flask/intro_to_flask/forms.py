@@ -13,6 +13,7 @@ class ContactForm(Form):
 class SignupForm(Form):
   firstname = TextField("First name",  [validators.Required("Please enter your first name.")])
   lastname = TextField("Last name",  [validators.Required("Please enter your last name.")])
+  address = TextField("Address",  [validators.Required("Please enter your address.")])
   email = TextField("Email",  [validators.Required("Please enter your email address."), validators.Email("Please enter your email address.")])
   password = PasswordField('Password', [validators.Required("Please enter a password.")])
   submit = SubmitField("Create account")

@@ -3,6 +3,8 @@
   <h2>User List</h2>
   {% for user in users.items %}
     <div class="flash">{{ user.firstname }}</div>
+    <div class="flash">{{ user.email }}</div>
+    <div class="flash">{{ user.address }} --------- {{ user.id }}</div>
   {% endfor %}
   
 {% if users.has_prev %}<a href="{{ url_for('list', page=users.prev_num) }}">&lt;&lt; Newer users</a>{% else %}&lt;&lt; Newer users{{users.prev_num}}{% endif %} | 

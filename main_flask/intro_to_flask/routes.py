@@ -2,7 +2,7 @@ from intro_to_flask import app
 from flask import render_template, request, flash,session,url_for, redirect,abort
 from forms import  SignupForm,SigninForm,EditSignupForm
 from flask_mail import Message, Mail
-from models import db, User
+from models import db, User,Address
 import os
 
 mail = Mail()
@@ -21,7 +21,10 @@ def signup():
 		  return render_template('signup.html', form=form)
 		else:   
 		  newuser = User(form.firstname.data, form.lastname.data, form.email.data, form.password.data)
+		  address = Address(address=form.address.data)
+		  newuser.addresses.append(address)
 		  db.session.add(newuser)
+		  db.session.add(address)#use relationship here
 		  db.session.commit() 
 		  session['email'] = newuser.email
 		  return redirect(url_for('profile'))
@@ -33,8 +36,8 @@ def signup():
 @app.route('/list')
 @app.route('/list/<int:page>', methods=['GET'])
 def list(page=1):
-  users = User.query.order_by(User.uid.desc()).paginate(page, 1, False)
-  print(users.prev_num)
+  users = User.query.order_by(User.uid.desc()).join(Address, User.uid==Address.user_id,aliased=True).add_columns(User.uid, User.firstname, User.email, Address.address,Address.id).paginate(page, 5, False)
+  #users = User.query.order_by(User.uid.desc()).add_columns(User.uid, User.firstname, User.email, Address.address).paginate(page, 1, False)
   return render_template('list.html',users=users)
 
 @app.route('/profile')
@@ -42,9 +45,11 @@ def profile():
 
   if 'email' not in session:
     return redirect(url_for('signin'))
-
+	
+  address = Address()
   user = User.query.filter_by(email = session['email']).first()
-  
+  user.addresses.append(address)
+   
   if user is None:
     return redirect(url_for('signin'))
   else:
@@ -74,6 +79,7 @@ def editprofile():
 		  if form.password.data != '':
 			user.password = form.password.data
 		  db.session.commit() 
+		  flash('Profile updated successfully.')
 		  #session['email'] = newuser.email
 		  return redirect(url_for('editprofile'))
 		  

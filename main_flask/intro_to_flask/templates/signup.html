@@ -9,6 +9,10 @@
     <div class="flash">{{ message }}</div>
   {% endfor %}
   
+  {% for message in form.address.errors %}
+    <div class="flash">{{ message }}</div>
+  {% endfor %}
+  
   {% for message in form.email.errors %}
     <div class="flash">{{ message }}</div>
   {% endfor %}
@@ -25,6 +29,9 @@
     
     {{ form.lastname.label }}
     {{ form.lastname }}
+    
+    {{ form.address.label }}
+    {{ form.address }}
     
     {{ form.email.label }}
     {{ form.email }}
