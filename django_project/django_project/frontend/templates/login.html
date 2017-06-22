@@ -10,6 +10,13 @@
         <div class="span12">
             <div class="span6">
                 <div class="area">
+                    {% if messages %}
+                    <ul class="messages">
+                        {% for message in messages %}
+                        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
                     <form class="form-horizontal" method="post" novalidate="novalidate">
                         <div class="heading">
                             <h4 class="form-heading">Sign In</h4>

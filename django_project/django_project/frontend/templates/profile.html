@@ -1,27 +1,47 @@
 {% extends "layout.html" %}
 {% block content %}
 <div class="jumbotron text-center">
-  <h1>My Profile Page----{{ user_id }}</h1>
+  <h1>My Profile Page</h1>
   <p>Resize this responsive page to see the effect!</p> 
 </div>
   
 <div class="container">
   <div class="row">
-    <div class="col-sm-4">
-      <h3>Column 1</h3>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
-      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
-    </div>
-    <div class="col-sm-4">
-      <h3>Column 2</h3>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
-      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
-    </div>
-    <div class="col-sm-4">
-      <h3>Column 3</h3>        
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
-      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
-    </div>
+   {% if messages %}
+      {% for message in messages %}
+      {{ message }}
+      {% endfor %}
+    {% endif %}
+    <form method="post" novalidate="novalidate">
+            {% csrf_token %}
+            {% for field in form %}
+              <p>
+                {{ field.label_tag }}<br>
+                {{ field }}
+                {% if field.help_text %}
+                  <small style="color: grey">{{ field.help_text }}</small>
+                {% endif %}
+                {% for error in field.errors %}
+                  <p style="color: red">{{ error }}</p>
+                {% endfor %}
+              </p>
+            {% endfor %}
+
+            <div class="control-group">
+                <div class="controls">
+                     <button class=
+                    "btn btn-success" type="submit">Update Profile</button>
+                </div>
+            </div>
+
+            <div class="alert alert-info">
+                <button class="close" data-dismiss="alert" type=
+                "button">×</button> <strong>Confirmation:</strong>
+                A confirmation email has been sent to your
+                email.<br>
+                Thank you for your registration.
+            </div>
+        </form>
   </div>
 </div>
 {% endblock %}

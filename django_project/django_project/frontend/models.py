@@ -2,7 +2,6 @@ from django.db import models
 from datetime import datetime
 
 class User(models.Model):
-
 	firstname = models.CharField(max_length = 50)
 	lastname = models.CharField(max_length = 50)
 	pwdhash = models.CharField(max_length = 50)
@@ -12,4 +11,5 @@ class User(models.Model):
 	
 
 	class Meta:
+		managed = False
 		db_table = "users"
