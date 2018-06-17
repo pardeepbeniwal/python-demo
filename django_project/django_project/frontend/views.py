@@ -6,12 +6,21 @@ from datetime import datetime
 from django.forms.models import model_to_dict
 from django.contrib import messages
 from django.core.exceptions import ObjectDoesNotExist
+import matplotlib.pyplot as plt
+plt.rcdefaults()
+import numpy as np
+import matplotlib.pyplot as plt
+from django.contrib.auth.decorators import login_required
+
 
 
 def home(request):
     text = "Displaying article Numberasd "
     return render(request, "home.html", {})
 
+def contact(request):
+    text = "contact page here "
+    return render(request, "contact.html", {})
 
 def signup(request):
     if request.method == 'POST':
@@ -52,7 +61,7 @@ def login(request):
         form = LoginForm()
         return render(request, 'login.html', {'form': form})
 
-
+#@login_required('test/test')
 def profile(request):
     if request.session.has_key('user_id'):
         user_id = request.session['user_id']

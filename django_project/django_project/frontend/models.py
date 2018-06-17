@@ -8,8 +8,10 @@ class User(models.Model):
 	email = models.CharField(max_length = 50,unique=True)  
 	status = models.IntegerField(default='0', editable=False)  
 	created = models.DateTimeField(auto_now=True)	
+	slug = models.SlugField(null=True)
 	
 
 	class Meta:
-		managed = False
+		#managed = False
 		db_table = "users"
+		app_label = 'wdland'

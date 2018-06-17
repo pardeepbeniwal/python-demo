@@ -15,12 +15,12 @@ Including another URLconf
 """
 from django.conf.urls import url,include
 from django.contrib import admin
-from django_project.frontend.views import home
+
 
 urlpatterns = [	
 	 url(r'^admin/', admin.site.urls),
-	 url(r'^', include('django_project.frontend.urls')),
-   
+	 url(r'^user/', include('django_project.frontend.urls')),
+	 url(r'^app/', include('django_project.app.urls'))   
 ]
 
 #urlpatterns = [ url(r'^$', Home.as_view(), name='user/register') ]

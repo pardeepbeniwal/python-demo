@@ -7,15 +7,15 @@ mysql = MySQL()
 
 app = Flask(__name__)
 app.config['MYSQL_DATABASE_USER'] = 'root'
-app.config['MYSQL_DATABASE_PASSWORD'] = 'password@123'
-app.config['MYSQL_DATABASE_DB'] = 'test'
+app.config['MYSQL_DATABASE_PASSWORD'] = 'pardeep'
+app.config['MYSQL_DATABASE_DB'] = 'flask'
 app.config['MYSQL_DATABASE_HOST'] = 'localhost'
 mysql.init_app(app)
 
-@app.route('/addpost', methods=['POST'])
-def addpost():
+@app.route('/register', methods=['POST'])
+def register():
     data = request.json
-    q = 'insert into test_table set '
+    q = 'insert into users set '
     for key, value in data.items():
        q += key+'='+'"'+value+'",'
     #query = str[:-1]
@@ -61,8 +61,6 @@ def getpost():
     list = {"list":empList}
     output.append(list)
     return json.dumps(output)
-
-
 
 if __name__ == "__main__":
     app.run(debug=True)
