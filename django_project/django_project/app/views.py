@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect,get_object_or_404
 from django.http import HttpResponse
 from django_project.app.forms import SignUpForm, LoginForm,ProfileForm
-from django_project.app.models import User
+from django_project.app.models import User,School
 from datetime import datetime
 from django.forms.models import model_to_dict
 from django.contrib import messages
@@ -10,7 +10,20 @@ import matplotlib.pyplot as plt
 plt.rcdefaults()
 import numpy as np
 import matplotlib.pyplot as plt
+from datetime import datetime, timedelta
 
+def getschool(request):	
+	arg = 'hisar-school'
+	data = School.getSchool(School,arg)
+	print(44444444)
+	print(data)
+	#data = data.school_name
+	print(3333)
+	#now = datetime.now()-timedelta(433)
+	#html = "<html><body>It is now %s</body></html>"%now.date()
+	#return HttpResponse(html)
+	return render(request, "home.html", {'data':data})
+	
 def apphome(request):
     text = "This is APP HOME "
     return redirect("http://stackoverflow.com/")
